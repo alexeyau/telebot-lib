@@ -1,0 +1,22 @@
+{
+  "name": "telebot-lib",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexeyau/telebot-lib.git"
+  },
+  "keywords": [
+    "telegram"
+  ],
+  "author": "Aleksey A",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexeyau/telebot-lib/issues"
+  },
+  "homepage": "https://github.com/alexeyau/telebot-lib#readme"
+}
