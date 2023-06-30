@@ -14,6 +14,8 @@ class BasicBot {
       getProcessedMessagesIds,
       getTelegramMessagesAsync,
       sendTelegramMessageAsync,
+      getStorageItem,
+      setStorageItem,
       name,
     } = initSettings;
 
@@ -27,6 +29,8 @@ class BasicBot {
     this.getProcessedMessagesIds = getProcessedMessagesIds;
     this.getTelegramMessagesAsync = getTelegramMessagesAsync;
     this.sendTelegramMessageAsync = sendTelegramMessageAsync;
+    this.getStorageItem = getStorageItem;
+    this.setStorageItem = setStorageItem;
 
     this._processedIds = [];
     this._interval = null;
@@ -42,8 +46,8 @@ class BasicBot {
       const updates = await this.getTelegramMessagesAsync(lastUpdateId + 1);
       console.log(' > updates: ', updates);
       let arr = [];
-      if (JSON.parse(getStorageItem('activeUsers'))) {
-        arr = JSON.parse(getStorageItem('activeUsers'));
+      if (JSON.parse(this.getStorageItem('activeUsers'))) {
+        arr = JSON.parse(this.getStorageItem('activeUsers'));
       }
       updates.forEach((item) => {
         arr.push(item.message.chat.first_name);
@@ -53,7 +57,7 @@ class BasicBot {
           return arr.indexOf(name) === index;
         })
         .sort();
-      setStorageItem('activeUsers', JSON.stringify(answer));
+      this.setStorageItem('activeUsers', JSON.stringify(answer));
 
       updates
         .filter(
