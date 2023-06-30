@@ -1,5 +1,3 @@
-// import { setStorageItem, getStorageItem } from '@services/localStorage.js';
-
 class BasicBot {
   static settings = {
     intervalTime: 10000,

@@ -1,6 +1,6 @@
 {
   "name": "telebot-lib",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/alexeyau/telebot-lib/issues"
   },
-  "homepage": "https://github.com/alexeyau/telebot-lib#readme"
+  "homepage": "https://github.com/alexeyau/telebot-lib#readme",
+  "publishConfig": {
+    "registry-url": "https://npm.pkg.github.com/",
+    "registry": "https://registry.npmjs.org/"
+  }
 }
