@@ -1,6 +1,7 @@
 class BasicBot {
   static settings = {
     intervalTime: 10000,
+    botName: 'simpleBot',
   };
 
   static isProcessed(id, processedIdArr) {
@@ -16,7 +17,8 @@ class BasicBot {
       sendTelegramMessageAsync,
       getStorageItem,
       setStorageItem,
-      name,
+      botName,
+      token,
     } = initSettings;
 
     this.settings = {
@@ -31,10 +33,11 @@ class BasicBot {
     this.sendTelegramMessageAsync = sendTelegramMessageAsync;
     this.getStorageItem = getStorageItem;
     this.setStorageItem = setStorageItem;
+    this.token = token;
 
     this._processedIds = [];
     this._interval = null;
-    this.name = name || 'BasicBot';
+    this.botName = botName || BasicBot.settings.botName;
   }
 
   _doWork = async () => {
@@ -43,11 +46,12 @@ class BasicBot {
       this._processedIds = this.getProcessedMessagesIds(this.botName);
 
       const lastUpdateId = this._processedIds[this._processedIds.length - 1];
-      const updates = await this.getTelegramMessagesAsync(lastUpdateId + 1);
+      const updates = await this.getTelegramMessagesAsync(this.token, lastUpdateId + 1);
       console.log(' > updates: ', updates);
       let arr = [];
-      if (JSON.parse(this.getStorageItem('activeUsers'))) {
-        arr = JSON.parse(this.getStorageItem('activeUsers'));
+      const users = JSON.parse(this.getStorageItem('activeUsers') || '[]');
+      if (users) {
+        arr = users;
       }
       updates.forEach((item) => {
         arr.push(item.message.chat.first_name);
@@ -74,7 +78,7 @@ class BasicBot {
     if (update.message?.text === '/start') {
       answer = 'vot du yu vont?';
     }
-    await this.sendTelegramMessageAsync(update.message?.from.id, answer);
+    await this.sendTelegramMessageAsync(this.token, update.message?.from.id, answer);
     this._onSend(update);
   }
 
@@ -93,7 +97,7 @@ class BasicBot {
     if (this.onSendCallback) {
       this.onSendCallback(update.message);
     }
-    this.saveProcessedMessageId(update.update_id);
+    this.saveProcessedMessageId(this.botName, update.update_id);
   }
 }
 
