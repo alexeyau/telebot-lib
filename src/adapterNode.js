@@ -1,11 +1,18 @@
-const { setStorageItem, getStorageItem } = require("./services/fileStorage.js");
-const {
+//const { setStorageItem, getStorageItem } = require("./services/fileStorage.js");
+// const {
+//   getTelegramBotName,
+//   getTelegramMessages,
+//   sendTelegramMessage,
+// } = require("./services/telegramAPINode.js");
+
+import {
   getTelegramBotName,
   getTelegramMessages,
   sendTelegramMessage,
-} = require("./services/telegramAPINode.js");
+} from "./services/telegramAPI.js"
+import { setStorageItem, getStorageItem } from "./services/localStorage.js";
 
-function adapterNode(BotClass, initSettings) {
+export function adapterNode(BotClass, initSettings) {
   return new BotClass({
     ...initSettings,
     setStorageItem,
@@ -37,6 +44,6 @@ function adapterNode(BotClass, initSettings) {
   });
 }
 
-module.exports = {
-  adapterNode,
-};
+// module.exports = {
+//   adapterNode,
+// };

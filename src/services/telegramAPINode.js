@@ -1,4 +1,5 @@
-const https = require('https');
+//const https = require('https');
+import https from 'https'
 const HOSTNAME = 'api.telegram.org';
 
 function getData(path) {
@@ -68,17 +69,17 @@ function postData(path, dataObj) {
   return promise;
 }
 
-const getTelegramBotName = (token) => {
+export const getTelegramBotName = (token) => {
   const path = `/bot${token}/getMe`;
   return getData(path);
 };
 
-const getTelegramMessages = (token, lastUpdateId) => {
+export const getTelegramMessages = (token, lastUpdateId) => {
   const path = `/bot${token}/getUpdates?limit=20&offset=${lastUpdateId || 0}`;
   return getData(path);
 };
 
-const sendTelegramMessage = (token, data) => {
+export const sendTelegramMessage = (token, data) => {
   const path = `/bot${token}/sendMessage`;
   return postData(path, data);
   // return fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -90,10 +91,4 @@ const sendTelegramMessage = (token, data) => {
   // }).then((data) => {
   //   return data.json();
   // });
-};
-
-module.exports = {
-  getTelegramBotName,
-  getTelegramMessages,
-  sendTelegramMessage,
 };

@@ -1,9 +1,19 @@
-const { BasicBot } = require('./src/BasicBot.js');
-const { adapterBrowser } = require('./src/adapterBrowser.js');
-const { adapterNode } = require('./src/adapterNode.js');
+// const BasicBot = require('./src/BasicBot.js');
+// const { adapterBrowser } = require('./src/adapterBrowser.js');
+// const { adapterNode } = require('./src/adapterNode.js');
 
-module.exports = {
-  BasicBot,
-  adapterBrowser,
-  adapterNode,
-};
+import BasicBot from './src/BasicBot.js'
+import { adapterBrowser } from './src/adapterBrowser.js'
+import { adapterNode } from './src/adapterNode.js'
+
+// module.exports = {
+//   BasicBot: BasicBot,
+//   adapterBrowser,
+//   adapterNode,
+// };
+
+export {
+    BasicBot,
+    adapterBrowser,
+    adapterNode,
+  };

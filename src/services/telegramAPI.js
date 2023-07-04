@@ -1,10 +1,10 @@
-const getTelegramBotName = (token) => {
+export const getTelegramBotName = (token) => {
   return fetch(`https://api.telegram.org/bot${token}/getMe`).then((data) => {
     return data.json();
   });
 };
 
-const getTelegramMessages = (token, lastUpdateId) => {
+export const getTelegramMessages = (token, lastUpdateId) => {
   return fetch(
     `https://api.telegram.org/bot${token}/getUpdates?limit=20&offset=${lastUpdateId || 0}`,
   ).then((data) => {
@@ -12,7 +12,7 @@ const getTelegramMessages = (token, lastUpdateId) => {
   });
 };
 
-const sendTelegramMessage = (token, data) => {
+export const sendTelegramMessage = (token, data) => {
   return fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: 'POST',
     headers: {
@@ -22,10 +22,4 @@ const sendTelegramMessage = (token, data) => {
   }).then((data) => {
     return data.json();
   });
-};
-
-module.exports = {
-  getTelegramBotName,
-  getTelegramMessages,
-  sendTelegramMessage,
 };

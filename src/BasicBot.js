@@ -10,12 +10,9 @@ class BasicBot {
 
   constructor(initSettings) {
     const {
-      onSendCallback,
-      saveProcessedMessageId,
-      getProcessedMessagesIds,
-      getTelegramMessagesAsync,
-      sendTelegramMessageAsync,
       getStorageItem,
+      sendTelegramMessage,
+      getTelegramMessages,
       setStorageItem,
       botName,
       token,
@@ -26,11 +23,8 @@ class BasicBot {
       test2: '1235',
     };
 
-    this.onSendCallback = onSendCallback;
-    this.saveProcessedMessageId = saveProcessedMessageId;
-    this.getProcessedMessagesIds = getProcessedMessagesIds;
-    this.getTelegramMessagesAsync = getTelegramMessagesAsync;
-    this.sendTelegramMessageAsync = sendTelegramMessageAsync;
+    this.sendTelegramMessage = sendTelegramMessage;
+    this.getTelegramMessages = getTelegramMessages;
     this.getStorageItem = getStorageItem;
     this.setStorageItem = setStorageItem;
     this.token = token;
@@ -39,6 +33,37 @@ class BasicBot {
     this._interval = null;
     this.botName = botName || BasicBot.settings.botName;
   }
+
+  saveProcessedMessageId (mId){
+    const botData = this.getStorageItem(this.botName) || {};
+    const nextBotData = {
+      ...botData,
+      processedUpdatesIds: [...(botData.processedUpdatesIds || []), mId],
+    };
+    this.setStorageItem(this.botName, nextBotData);
+  };
+
+  getProcessedMessagesIds (){
+    const botData = this.getStorageItem(this.botName) || {};
+    return botData.processedUpdatesIds || [];
+  };
+
+  async getTelegramMessagesAsync (lastUpdateId){
+    return this.getTelegramMessages(this.token, lastUpdateId).then((readyData) => {
+      return readyData.result;
+    });
+  };
+
+  async sendTelegramMessageAsync (userId, messageText){
+    return this.sendTelegramMessage(this.token, {
+      chat_id: userId,
+      text: messageText,
+    });
+  };
+
+  onSendCallback (){
+    console.log('callback: message sent');
+  };
 
   _doWork = async () => {
     console.log(' tic/tac > ', new Date());
@@ -49,7 +74,7 @@ class BasicBot {
       const updates = await this.getTelegramMessagesAsync(this.token, lastUpdateId + 1);
       console.log(' > updates: ', updates);
       let arr = [];
-      const users = JSON.parse(this.getStorageItem('activeUsers') || '[]');
+      const users = this.getStorageItem('activeUsers') || [];
       if (users) {
         arr = users;
       }
@@ -61,7 +86,7 @@ class BasicBot {
           return arr.indexOf(name) === index;
         })
         .sort();
-      this.setStorageItem('activeUsers', JSON.stringify(answer));
+      this.setStorageItem('activeUsers', answer);
 
       updates
         .filter(
@@ -78,7 +103,7 @@ class BasicBot {
     if (update.message?.text === '/start') {
       answer = 'vot du yu vont?';
     }
-    await this.sendTelegramMessageAsync(this.token, update.message?.from.id, answer);
+    await this.sendTelegramMessageAsync(update.message?.from.id, answer);
     this._onSend(update);
   }
 
@@ -97,10 +122,9 @@ class BasicBot {
     if (this.onSendCallback) {
       this.onSendCallback(update.message);
     }
-    this.saveProcessedMessageId(this.botName, update.update_id);
+    this.saveProcessedMessageId(update.update_id);
   }
 }
 
-module.exports = {
-  BasicBot,
-};
+//module.exports = BasicBot;
+export default BasicBot;

@@ -1,12 +1,7 @@
-const getStorageItem = (key) => {
-  return localStorage.getItem(key);
+export const getStorageItem = (key) => {
+  return JSON.parse(localStorage.getItem(key));
 };
 
-const setStorageItem = (key, value) => {
-  localStorage.setItem(key, value);
-};
-
-module.exports = {
-  getStorageItem,
-  setStorageItem,
+export const setStorageItem = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value));
 };
