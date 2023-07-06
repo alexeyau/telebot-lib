@@ -1,19 +1,16 @@
-// const BasicBot = require('./src/BasicBot.js');
-// const { adapterBrowser } = require('./src/adapterBrowser.js');
-// const { adapterNode } = require('./src/adapterNode.js');
 
 import BasicBot from './src/BasicBot.js'
+import BasicBotRandom from './src/BasicBotRandom.js'
+import BasicBotQuestion from './src/BasicBotQuestion.js'
+import BasicBotChatGPT from './src/BasicBotChatGPT.js'
 import { adapterBrowser } from './src/adapterBrowser.js'
 import { adapterNode } from './src/adapterNode.js'
 
-// module.exports = {
-//   BasicBot: BasicBot,
-//   adapterBrowser,
-//   adapterNode,
-// };
-
 export {
-    BasicBot,
-    adapterBrowser,
-    adapterNode,
-  };
+  BasicBot,
+  BasicBotRandom,
+  BasicBotQuestion,
+  BasicBotChatGPT,
+  adapterBrowser,
+  adapterNode,
+};

@@ -126,5 +126,4 @@ class BasicBot {
   }
 }
 
-//module.exports = BasicBot;
 export default BasicBot;
