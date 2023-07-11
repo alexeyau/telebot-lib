@@ -1,16 +1,9 @@
-//const { setStorageItem, getStorageItem } = require("./services/fileStorage.js");
-// const {
-//   getTelegramBotName,
-//   getTelegramMessages,
-//   sendTelegramMessage,
-// } = require("./services/telegramAPINode.js");
-
+import { setStorageItem, getStorageItem } from "./services/fileStorage.js"
 import {
   getTelegramBotName,
   getTelegramMessages,
   sendTelegramMessage,
-} from "./services/telegramAPI.js"
-import { setStorageItem, getStorageItem } from "./services/localStorage.js";
+} from "./services/telegramAPINode.js"
 
 export function adapterNode(BotClass, initSettings) {
   return new BotClass({
