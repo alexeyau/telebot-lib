@@ -3,7 +3,11 @@
 import fs from 'fs';
 import path from 'path';
 
-const filePath = path.dirname(__filename) + '/_storage/simpleStorage.json';
+const currentModuleUrl = import.meta.url;
+const currentModulePath = fileURLToPath(currentModuleUrl);
+const currentModuleDir = dirname(currentModulePath);
+
+const filePath = currentModuleDir + '/_storage/simpleStorage.json';
 
 const getStorageObj = () => {
   try {
