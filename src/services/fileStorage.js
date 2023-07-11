@@ -1,10 +1,12 @@
 // const fs = require('fs');
 // const path = require('path');
 import fs from 'fs';
-import path from 'path';
+//import path from 'path';
+import { URL } from 'url';
+import { dirname } from 'path';
 
-const currentModuleUrl = import.meta.url;
-const currentModulePath = fileURLToPath(currentModuleUrl);
+const currentModuleUrl = new URL(import.meta.url);
+const currentModulePath = dirname(currentModuleUrl.pathname);
 const currentModuleDir = dirname(currentModulePath);
 
 const filePath = currentModuleDir + '/_storage/simpleStorage.json';
