@@ -90,7 +90,9 @@ class BasicBotQuestion extends BasicBot {
       this.setStorageItem('questionBot01', localUser);
       this.sendTelegramMessageAsync(update.message?.from.id, 'Отлично, вы ответили на все вопросы');
       let local = this.getStorageItem('questionBot01');
-      local['users'][update.message.chat.id]['answers'].push(update.message?.text);
+      if(local['users'][update.message.chat.id]['answers'].length < questionsList.length) {
+        local['users'][update.message.chat.id]['answers'].push(update.message?.text);
+      };
       local['users'][update.message.chat.id].numberOfQuestions = 0;
       this.setStorageItem('questionBot01', local);
       this._onSend(update);
@@ -105,7 +107,9 @@ class BasicBotQuestion extends BasicBot {
     this._onSend(update);
 
     let local = this.getStorageItem('questionBot01');
-    local['users'][update.message.chat.id]['answers'].push(update.message?.text);
+    if(local['users'][update.message.chat.id]['answers'].length < questionsList.length) {
+      local['users'][update.message.chat.id]['answers'].push(update.message?.text);
+    };
     this.setStorageItem('questionBot01', local);
   }
 }
