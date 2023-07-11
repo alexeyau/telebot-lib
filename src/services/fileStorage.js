@@ -9,7 +9,7 @@ const currentModuleUrl = new URL(import.meta.url);
 const currentModulePath = dirname(currentModuleUrl.pathname);
 const currentModuleDir = dirname(currentModulePath);
 
-const filePath = currentModuleDir + '/_storage/simpleStorage.json';
+const filePath = currentModuleDir + '/services/_storage/simpleStorage.json';
 
 const getStorageObj = () => {
   try {
