@@ -26,13 +26,13 @@ export function adapterNode(BotClass, initSettings) {
       const botData = JSON.parse(getStorageItem(botName, initSettings.fileStoragePath) || '{}');
       return botData.processedUpdatesIds || [];
     },
-    getTelegramMessagesAsync: async (token, lastUpdateId) => {
+    getTelegramMessages: async (token, lastUpdateId) => {
       return getTelegramMessages(token, lastUpdateId).then((readyData) => {
         console.log(' g-> ', readyData);
         return readyData.result;
       });
     },
-    sendTelegramMessageAsync: async (token, userId, messageText) => {
+    sendTelegramMessage: async (token, userId, messageText) => {
       return sendTelegramMessage(token, {
         chat_id: userId,
         text: messageText,
