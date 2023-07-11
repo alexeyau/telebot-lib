@@ -16,10 +16,10 @@ export function adapterNode(BotClass, initSettings) {
         ...botData,
         processedUpdatesIds: [...(botData.processedUpdatesIds || []), mId],
       });
-      setStorageItem(botName, nextBotData);
+      setStorageItem(botName, nextBotData, initSettings.fileStoragePath);
     },
     getProcessedMessagesIds: (botName) => {
-      const botData = JSON.parse(getStorageItem(botName) || '{}');
+      const botData = JSON.parse(getStorageItem(botName, initSettings.fileStoragePath) || '{}');
       return botData.processedUpdatesIds || [];
     },
     getTelegramMessagesAsync: async (token, lastUpdateId) => {

@@ -1,17 +1,6 @@
-// const fs = require('fs');
-// const path = require('path');
 import fs from 'fs';
-//import path from 'path';
-import { URL } from 'url';
-import { dirname } from 'path';
 
-const currentModuleUrl = new URL(import.meta.url);
-const currentModulePath = dirname(currentModuleUrl.pathname);
-const currentModuleDir = dirname(currentModulePath);
-
-const filePath = currentModuleDir + '/services/_storage/simpleStorage.json';
-
-const getStorageObj = () => {
+const getStorageObj = (filePath) => {
   try {
     const fd = fs.readFileSync(filePath, 'utf-8');
     if (!fd) {
@@ -25,12 +14,12 @@ const getStorageObj = () => {
   }
 };
 
-const getStorageItem = (key) => {
+const getStorageItem = (key, filePath) => {
   const storData = getStorageObj();
   return storData?.[key];
 };
 
-const setStorageItem = (key, value) => {
+const setStorageItem = (key, value, filePath) => {
   const storData = getStorageObj() || {};
   const nextData = {
     ...storData,
@@ -46,7 +35,7 @@ const setStorageItem = (key, value) => {
   }
 };
 
-const clearStorage = () => {
+const clearStorage = (filePath) => {
   try {
     fs.writeFileSync(filePath, JSON.stringify({}));
     return true;
