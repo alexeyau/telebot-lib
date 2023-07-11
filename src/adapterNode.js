@@ -8,8 +8,12 @@ import {
 export function adapterNode(BotClass, initSettings) {
   return new BotClass({
     ...initSettings,
-    setStorageItem,
-    getStorageItem,
+    setStorageItem: function(key, value) {
+      return setStorageItem(key, value, initSettings.fileStoragePath)
+    },
+    getStorageItem: function(key) {
+      return getStorageItem(key, initSettings.fileStoragePath)
+    },
     saveProcessedMessageId: (botName, mId) => {
       const botData = JSON.parse(getStorageItem(botName) || '{}');
       const nextBotData = JSON.stringify({

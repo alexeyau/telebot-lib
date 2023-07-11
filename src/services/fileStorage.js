@@ -15,12 +15,12 @@ const getStorageObj = (filePath) => {
 };
 
 const getStorageItem = (key, filePath) => {
-  const storData = getStorageObj();
+  const storData = getStorageObj(filePath);
   return storData?.[key];
 };
 
 const setStorageItem = (key, value, filePath) => {
-  const storData = getStorageObj() || {};
+  const storData = getStorageObj(filePath) || {};
   const nextData = {
     ...storData,
     [key]: value,
