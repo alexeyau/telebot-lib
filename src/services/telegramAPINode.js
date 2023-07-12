@@ -80,15 +80,7 @@ export const getTelegramMessages = (token, lastUpdateId) => {
 };
 
 export const sendTelegramMessage = (token, data) => {
+  console.log("DATA", data)
   const path = `/bot${token}/sendMessage`;
   return postData(path, data);
-  // return fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify(data),
-  // }).then((data) => {
-  //   return data.json();
-  // });
 };

@@ -1,6 +1,6 @@
 class BasicBot {
   static settings = {
-    intervalTime: 10000,
+    intervalTime: 5000,
     botName: 'simpleBot',
   };
 
@@ -50,6 +50,7 @@ class BasicBot {
 
   async getTelegramMessagesAsync (lastUpdateId){
     return this.getTelegramMessages(this.token, lastUpdateId).then((readyData) => {
+      console.log("READYDATA", readyData)
       return readyData.result;
     });
   };

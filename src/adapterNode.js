@@ -29,14 +29,11 @@ export function adapterNode(BotClass, initSettings) {
     getTelegramMessages: async (token, lastUpdateId) => {
       return getTelegramMessages(token, lastUpdateId).then((readyData) => {
         console.log(' g-> ', readyData);
-        return readyData.result;
+        return readyData;
       });
     },
-    sendTelegramMessage: async (token, userId, messageText) => {
-      return sendTelegramMessage(token, {
-        chat_id: userId,
-        text: messageText,
-      });
+    sendTelegramMessage: async (token, dataObj) => {
+      return sendTelegramMessage(token, dataObj);
     },
   });
 }
