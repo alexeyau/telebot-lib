@@ -27,7 +27,7 @@ class BasicBotQuestion extends BasicBot {
 
   init() {
     if (!this.getStorageItem('listOfQuestions')) {
-      this.setStorageItem('listOfQuestions', JSON.stringify(initListQuestion));
+      this.setStorageItem('listOfQuestions', initListQuestion);
     };
   }
 
@@ -54,7 +54,7 @@ class BasicBotQuestion extends BasicBot {
       update.message?.text === '3' ||
       update.message?.text === '4';
     const isTextStart = update.message?.text === '/start';
-    const questionsList = JSON.parse(this.getStorageItem('listOfQuestions'));
+    const questionsList = this.getStorageItem('listOfQuestions');
     const users = this.getStorageItem('questionBot01');
     const isCurrentQuestionFirst =
       Number(users['users'][update.message.chat.id].numberOfQuestions) === 0;
@@ -98,6 +98,8 @@ class BasicBotQuestion extends BasicBot {
         this._onSend(update);
         return;
       }
+      console.log("QUESTIONS", questionsList)
+      console.log("TYPE", typeof(questionsList))
       this.sendTelegramMessageAsync(
         update.message?.from.id,
         'Привет! Ответьте на первый вопрос:\n' +

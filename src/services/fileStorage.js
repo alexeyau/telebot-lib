@@ -16,6 +16,9 @@ const getStorageObj = (filePath) => {
 
 const getStorageItem = (key, filePath) => {
   const storData = getStorageObj(filePath);
+  console.log("--------------------", typeof(storData?.[key]))
+  console.log("++++++++++++++++++++", key)
+  console.log("====================", storData?.[key])
   return storData?.[key];
 };
 

@@ -1,4 +1,3 @@
-//const https = require('https');
 import https from 'https'
 const HOSTNAME = 'api.telegram.org';
 
