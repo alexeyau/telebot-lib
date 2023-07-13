@@ -1,8 +1,34 @@
 import BasicBot from './BasicBot.js';
 
+const initListQuestion =  [
+  {
+    question:
+      'Какой год основания Санкт-Петербурга? Выберите следующие ответы: 1) 1689, 2) 1703, 3) 1721',
+    id: 0,
+  },
+  {
+    question:
+      'Кто изображен на банкноте в 100 рублей? Выберите следующие ответы: 1) Пушкин, 2) Сталин, 3) Ленин',
+    id: 1,
+  },
+  {
+    question:
+      'Как называется самое высокое здание в мире? Выберите следующие ответы: 1) Москва-сити, 2) Бурдж Халифа, 3) Пизанская башня',
+
+    id: 2,
+  },
+];
+
 class BasicBotQuestion extends BasicBot {
   constructor(initSettings) {
     super(initSettings);
+    this.init();
+  }
+
+  init() {
+    if (!this.getStorageItem('listOfQuestions')) {
+      this.setStorageItem('listOfQuestions', JSON.stringify(initListQuestion));
+    };
   }
 
   async _sendResponse(update) {
@@ -28,7 +54,7 @@ class BasicBotQuestion extends BasicBot {
       update.message?.text === '3' ||
       update.message?.text === '4';
     const isTextStart = update.message?.text === '/start';
-    const questionsList = this.getStorageItem('listOfQuestions');
+    const questionsList = JSON.parse(this.getStorageItem('listOfQuestions'));
     const users = this.getStorageItem('questionBot01');
     const isCurrentQuestionFirst =
       Number(users['users'][update.message.chat.id].numberOfQuestions) === 0;
@@ -76,7 +102,7 @@ class BasicBotQuestion extends BasicBot {
         update.message?.from.id,
         'Привет! Ответьте на первый вопрос:\n' +
           questionsList[users['users'][update.message.chat.id].numberOfQuestions].question +
-          ' в ответе нужно указать только букву ответа',
+          ' в ответе нужно указать только цифру',
       );
       this._onSend(update);
       return;

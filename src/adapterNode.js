@@ -37,7 +37,3 @@ export function adapterNode(BotClass, initSettings) {
     },
   });
 }
-
-// module.exports = {
-//   adapterNode,
-// };

@@ -1,6 +1,6 @@
 class BasicBot {
   static settings = {
-    intervalTime: 5000,
+    intervalTime: 10000,
     botName: 'simpleBot',
   };
 
@@ -10,10 +10,10 @@ class BasicBot {
 
   constructor(initSettings) {
     const {
-      getStorageItem,
       sendTelegramMessage,
       getTelegramMessages,
       setStorageItem,
+      getStorageItem,
       botName,
       token,
     } = initSettings;
