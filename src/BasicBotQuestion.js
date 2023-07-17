@@ -14,7 +14,6 @@ const initListQuestion =  [
   {
     question:
       'Как называется самое высокое здание в мире? Выберите следующие ответы: 1) Москва-сити, 2) Бурдж Халифа, 3) Пизанская башня',
-
     id: 2,
   },
 ];
@@ -27,9 +26,17 @@ class BasicBotQuestion extends BasicBot {
 
   init() {
     if (!this.getStorageItem('listOfQuestions')) {
-      this.setStorageItem('listOfQuestions', initListQuestion);
+      this.setQuestions(initListQuestion);
     };
-  }
+  };
+
+  setQuestions(questionsList) {
+    this.setStorageItem('listOfQuestions', questionsList);
+  };
+  
+  getQuestions(key) {
+    return this.getStorageItem(key);
+  };
 
   async _sendResponse(update) {
     if (!this.getStorageItem('questionBot01')) {
@@ -97,9 +104,7 @@ class BasicBotQuestion extends BasicBot {
         );
         this._onSend(update);
         return;
-      }
-      console.log("QUESTIONS", questionsList)
-      console.log("TYPE", typeof(questionsList))
+      };
       this.sendTelegramMessageAsync(
         update.message?.from.id,
         'Привет! Ответьте на первый вопрос:\n' +
